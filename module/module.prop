@@ -1,0 +1,7 @@
+id=guobao.fbo_plus
+name=FBO+
+version=v0.1.0
+versionCode=10
+author=guobao2333
+description=手动触发澎湃OS焕新存储(FBO)并可视化碎片等级，为 Cron/条件表达式留出扩展位。
+updateJson=https://github.com/guobao2333/UFS-FBO-Plus/releases/latest/download/update.json

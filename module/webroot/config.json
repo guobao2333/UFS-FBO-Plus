@@ -1,0 +1,7 @@
+{
+    "title": "FBO+",
+    "icon": "icon.png",
+    "windowResize": true,
+    "backHandler": false,
+    "exitConfirm": false
+}

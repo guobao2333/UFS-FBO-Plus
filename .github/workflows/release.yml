@@ -1,0 +1,95 @@
+name: Release module
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/release.yml'
+      - 'build.sh'
+      - 'module/**'
+
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: '发布暂存草稿'
+        default: false
+        type: boolean
+
+      prerelease:
+        description: '预发布'
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      release: ${{ steps.check.outputs.release }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Build module
+      id: meta
+      run: |
+        sh ./build.sh
+        VERSION="$(sed -n 's/^version=//p' module/module.prop | head -n 1)"
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        echo "Built $VERSION"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: FBOPlus
+        path: build/
+        if-no-files-found: error
+
+    - name: Check whether to publish
+      id: check
+      run: |
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          echo "release=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        if git tag | grep -qx "${{ steps.meta.outputs.version }}"; then
+          echo "tag ${{ steps.meta.outputs.version }} exists, skip release"
+          echo "release=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "release=true" >> "$GITHUB_OUTPUT"
+        fi
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ needs.build.outputs.release == 'true' }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
+    - name: Download artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: FBOPlus
+        path: build
+
+    - name: Read changelog
+      run: awk '/^## /{if(++n==2)exit} n==1' CHANGELOG.md > release-notes.md
+
+    - name: Create release
+      uses: softprops/action-gh-release@v3
+      with:
+        tag_name: ${{ needs.build.outputs.version }}
+        name: ${{ needs.build.outputs.version }}
+        body_path: release-notes.md
+        files: |
+          build/FBOPlus.zip
+          build/update.json
+        draft: ${{ inputs.draft }}
+        prerelease: ${{ inputs.prerelease }}

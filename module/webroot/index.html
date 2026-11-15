@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FBO+</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="topbar-title">FBO+</div>
+        <span class="chip" id="chip">检测中…</span>
+    </header>
+
+    <main id="main">
+        <section class="card hero">
+            <h2>存储焕新</h2>
+            <p class="sub" id="heroSub">正在检测设备能力…</p>
+
+            <div class="row" id="selectBar" hidden>
+                <span class="picked" id="picked">已选 0 个</span>
+                <button class="link" id="toggleList">选择应用</button>
+            </div>
+
+            <div class="applist" id="applist" hidden></div>
+
+            <button class="btn primary" id="runBtn" disabled>立即焕新</button>
+            <p class="hint" id="etaHint"></p>
+            <div class="steps" id="steps" hidden></div>
+        </section>
+
+        <section class="card">
+            <div class="card-head">
+                <h2>结果</h2>
+                <span class="stamp" id="stamp"></span>
+            </div>
+            <p class="empty" id="resultEmpty">还没有记录。选好应用后点「立即焕新」。</p>
+            <div id="chartWrap" hidden>
+                <div class="legend">
+                    <span><i style="background:var(--color-primary)"></i>整理前</span>
+                    <span><i style="background:var(--color-tertiary)"></i>整理后</span>
+                </div>
+                <div class="hbars" id="chart"></div>
+                <div class="summary" id="summary"></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-head">
+                <h2>计划功能</h2>
+                <span class="tag">待实现</span>
+            </div>
+            <ul class="todo">
+                <li><b>Cron 定时任务</b><span>夜间充电时自动焕新，避开白天使用</span></li>
+                <li><b>条件表达式</b><span>按电量、温度、碎片率决定是否执行</span></li>
+                <li><b>历史趋势</b><span>多轮焕新的碎片数量变化曲线</span></li>
+            </ul>
+        </section>
+
+        <details class="card diag">
+            <summary>诊断信息</summary>
+            <pre id="diag">—</pre>
+        </details>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

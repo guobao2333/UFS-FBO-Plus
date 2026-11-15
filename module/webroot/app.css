@@ -1,0 +1,408 @@
+/* FBO+ 界面样式 —— 颜色全部来自 theme.css 的 Monet 变量 */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-background);
+    color: var(--color-on-background);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    padding-top: var(--inset-top);
+    padding-bottom: calc(var(--inset-bottom) + 24px);
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px 6px;
+}
+
+.topbar-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.chip {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface-variant);
+    white-space: nowrap;
+}
+
+.chip.ok {
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+}
+
+.chip.bad {
+    background: var(--color-error-container);
+    color: var(--color-on-error-container);
+}
+
+main {
+    padding: 8px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card {
+    background: var(--color-surface-container-low);
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.card h2 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.card-head h2 {
+    margin: 0;
+}
+
+.stamp {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+}
+
+.sub {
+    margin: 0 0 14px;
+    color: var(--color-on-surface-variant);
+    font-size: 13px;
+}
+
+.hint {
+    margin: 8px 0 0;
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+    text-align: center;
+}
+
+.btn {
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    transition: opacity .15s, transform .1s;
+}
+
+.btn:active {
+    transform: scale(.985);
+    opacity: .85;
+}
+
+.btn:disabled {
+    background: var(--color-surface-container-highest);
+    color: var(--color-on-surface-variant);
+}
+
+/* 应用选择 */
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.picked {
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+}
+
+.link {
+    margin-left: auto;
+    border: 0;
+    background: none;
+    color: var(--color-primary);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 4px 2px;
+    cursor: pointer;
+}
+
+.applist {
+    max-height: 260px;
+    overflow-y: auto;
+    margin-bottom: 14px;
+    border-radius: 14px;
+    background: var(--color-surface-container);
+    padding: 4px 10px;
+}
+
+.appitem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-top: 1px solid var(--color-outline-variant);
+    font-size: 13px;
+}
+
+.appitem:first-child {
+    border-top: 0;
+}
+
+.appitem input {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--color-primary);
+    flex: none;
+}
+
+.appitem .pkg {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.appitem .mb {
+    margin-left: auto;
+    color: var(--color-on-surface-variant);
+    font-size: 12px;
+    flex: none;
+}
+
+/* 进度步骤 */
+.steps {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+}
+
+.step .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-outline-variant);
+    flex: none;
+}
+
+.step.active .dot {
+    background: var(--color-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
+}
+
+.step.done .dot {
+    background: var(--color-primary);
+}
+
+.step.done,
+.step.active {
+    color: var(--color-on-surface);
+}
+
+.step.failed .dot {
+    background: var(--color-error);
+}
+
+.step.failed {
+    color: var(--color-error);
+}
+
+.step .detail {
+    margin-left: auto;
+    font-size: 12px;
+    opacity: .8;
+}
+
+/* 横向柱状图 */
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+}
+
+.legend i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.hbars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.hrow {
+    display: grid;
+    grid-template-columns: 92px 1fr auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.hname {
+    font-size: 11px;
+    color: var(--color-on-surface-variant);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.htrack {
+    position: relative;
+    height: 14px;
+    background: var(--color-surface-container);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.htrack i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 5px;
+    transition: width .35s ease;
+}
+
+.hbefore {
+    background: var(--color-primary);
+    opacity: .45;
+}
+
+.hafter {
+    background: var(--color-tertiary);
+}
+
+.hnum {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-on-surface-variant);
+    min-width: 52px;
+    text-align: right;
+}
+
+.summary {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.metric {
+    background: var(--color-surface-container);
+    border-radius: 14px;
+    padding: 10px 12px;
+}
+
+.metric b {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.metric span {
+    font-size: 11px;
+    color: var(--color-on-surface-variant);
+}
+
+.empty {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+}
+
+/* 计划功能 */
+.tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--color-surface-container-highest);
+    color: var(--color-on-surface-variant);
+    margin-left: auto;
+    flex: none;
+}
+
+.todo {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+}
+
+.todo li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0;
+    border-top: 1px solid var(--color-outline-variant);
+    font-size: 14px;
+}
+
+.todo li:first-child {
+    border-top: 0;
+}
+
+.todo li span:not(.tag) {
+    flex-basis: 100%;
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+}
+
+/* 诊断 */
+.diag summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+}
+
+.diag summary::-webkit-details-marker {
+    display: none;
+}
+
+.diag[open] summary {
+    margin-bottom: 10px;
+}
+
+.diag pre {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-on-surface-variant);
+    max-height: 360px;
+    overflow: auto;
+}
