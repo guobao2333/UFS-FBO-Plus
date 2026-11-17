@@ -7,7 +7,6 @@ set -eu
 # Env var (optional):
 #   ZIP_NAME=x.zip    output file name (default FBOPlus.zip)
 
-REPO=guobao2333/UFS-FBO-Plus
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 MODULE_DIR="$ROOT/module"
 BUILD_DIR="$ROOT/build"
@@ -22,6 +21,16 @@ trap 'rm -rf "$STAGE"' EXIT INT TERM
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 cp -R "$MODULE_DIR/." "$STAGE/"
+
+# /sdcard 之类路径保存不了执行位，统一在暂存区修好
+for f in "$STAGE"/*.sh; do
+    [ -f "$f" ] && chmod 755 "$f"
+done
+
+prop() { sed -n "s/^$1=//p" "$STAGE/module.prop" | head -n 1; }
+MODID="$(prop id)"
+VERSION="$(prop version)"
+VERSION_CODE="$(prop versionCode)"
 
 # /sdcard 之类路径保存不了执行位，统一在暂存区修好
 for f in "$STAGE"/*.sh; do
@@ -92,8 +101,8 @@ cat > "$BUILD_DIR/update.json" <<EOF
 {
   "version": "$VERSION",
   "versionCode": $VERSION_CODE,
-  "zipUrl": "https://github.com/$REPO/releases/latest/download/$ZIP_NAME",
-  "changelog": "https://raw.githubusercontent.com/$REPO/main/CHANGELOG.md"
+  "zipUrl": "https://github.com/guobao2333/UFS-FBO-Plus/releases/latest/download/$ZIP_NAME",
+  "changelog": "https://raw.githubusercontent.com/guobao2333/UFS-FBO-Plus/main/CHANGELOG.md"
 }
 EOF
 echo "update.json: $BUILD_DIR/update.json"

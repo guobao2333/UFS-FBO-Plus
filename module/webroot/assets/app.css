@@ -1,0 +1,262 @@
+/* FBO+ 界面样式 —— 颜色来自 theme.css 的 Monet 变量 */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-on-background);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    padding-top: var(--inset-top);
+    padding-bottom: calc(var(--inset-bottom) + 110px);
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px 6px;
+}
+
+.topbar-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.chip {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface-variant);
+    white-space: nowrap;
+}
+
+.chip.ok {
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+}
+
+.chip.bad {
+    background: var(--color-error-container);
+    color: var(--color-on-error-container);
+}
+
+main {
+    padding: 8px 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card {
+    background: var(--color-surface-container-low);
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.applist[hidden] {
+    display: none !important;
+}
+
+.applist {
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0 0 14px;
+    border-radius: 14px;
+    background: var(--color-surface-container);
+    padding: 4px 10px;
+}
+
+.appitem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-top: 1px solid var(--color-outline-variant);
+    font-size: 13px;
+}
+
+.appitem:first-child {
+    border-top: 0;
+}
+
+.appitem input {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--color-primary);
+    flex: none;
+}
+
+.appitem .pkg {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn {
+    width: 100%;
+    border: 0;
+    border-radius: 16px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+}
+
+.btn:active {
+    opacity: .85;
+}
+
+.btn:disabled {
+    background: var(--color-surface-container-highest);
+    color: var(--color-on-surface-variant);
+}
+
+.bottombar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px 16px calc(12px + var(--inset-bottom));
+    background: linear-gradient(to top, var(--color-background) 65%, transparent);
+    z-index: 10;
+}
+
+.btn.secondary {
+    background: var(--color-surface-container-highest);
+    color: var(--color-primary);
+    margin-bottom: 14px;
+}
+
+/* 大数字 */
+.big {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.big span {
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.big em {
+    font-style: normal;
+    font-size: 15px;
+    color: var(--color-on-surface-variant);
+}
+
+.biglabel {
+    margin: 2px 0 18px;
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+}
+
+/* 竖向柱状图 */
+.plot {
+    position: relative;
+    height: 190px;
+    padding-right: 46px;
+}
+
+.grid {
+    position: absolute;
+    inset: 0 46px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.grid i {
+    border-top: 1px dashed var(--color-outline-variant);
+}
+
+.bars {
+    position: absolute;
+    inset: 0 46px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 8px;
+}
+
+.col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.bar {
+    width: 100%;
+    max-width: 30px;
+    background: var(--color-primary);
+    border-radius: 5px 5px 0 0;
+    min-height: 2px;
+}
+
+.yticks {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--color-on-surface-variant);
+    font-variant-numeric: tabular-nums;
+}
+
+.xaxis {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+    padding: 6px 46px 0 0;
+    font-size: 11px;
+    color: var(--color-on-surface-variant);
+}
+
+.xaxis span {
+    flex: 1;
+    text-align: center;
+}
+
+/* 日志 */
+.diag summary {
+    font-size: 14px;
+    font-weight: 600;
+    list-style: none;
+}
+
+.diag summary::-webkit-details-marker {
+    display: none;
+}
+
+.diag[open] summary {
+    margin-bottom: 10px;
+}
+
+.diag pre {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--color-on-surface-variant);
+    max-height: 320px;
+    overflow: auto;
+}

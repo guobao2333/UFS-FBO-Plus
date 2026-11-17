@@ -1,7 +1,6 @@
 # Technical details
 
-How FBO+ reaches Xiaomi's File-Based Optimization, what the chain looks like, and what this module
-deliberately does *not* do.
+How FBO+ reaches Xiaomi's File-Based Optimization, what the chain looks like, and what this module deliberately does *not* do.
 
 > [!NOTE]
 > Everything below was verified on a Redmi M332BF (`warsaw`) running HyperOS 3.0.305
@@ -9,12 +8,9 @@ deliberately does *not* do.
 
 ## What FBO is
 
-FBO is a UFS extension defined by JEDEC (JESD220-4, previously `JC-64.1-22-67`). The host tells the
-storage device which LBA ranges belong to a file, the device reports how fragmented those ranges are,
-and — if needed — physically defragments them.
+FBO is a UFS extension defined by JEDEC (JESD220-4, previously `JC-64.1-22-67`). The host tells the storage device which LBA ranges belong to a file, the device reports how fragmented those ranges are, and — if needed — physically defragments them.
 
-Xiaomi ships this as **焕新存储** (Storage refresh) in HyperOS. Like JEDEC, this module implements no
-defragmentation algorithm: the firmware and the system do the work.
+Xiaomi ships this as **焕新存储** (Storage refresh) in HyperOS. Like JEDEC, this module implements no defragmentation algorithm: the firmware and the system do the work.
 
 ## Call chain
 
@@ -41,15 +37,13 @@ WebUI / action.sh
 
 ## Triggering
 
-`appList` is a comma separated string. The system processes one app per batch step and finishes the
-whole list before reporting back:
+`appList` is a comma separated string. The system processes one app per batch step and finishes the whole list before reporting back:
 
 ```sh
 am broadcast -a miui.intent.action.transferActiveFboTrigger --es appList "com.kugou.android.lite,com.termux.widget"
 ```
 
-`ActiveFBO_trigger(String pkg)` (binder) validates that the package belongs to the *calling* uid, so
-root cannot call it directly — the broadcast is the only scriptable path.
+`ActiveFBO_trigger(String pkg)` (binder) validates that the package belongs to the *calling* uid, so root cannot call it directly — the broadcast is the only scriptable path.
 
 ## Reading results
 
@@ -63,6 +57,8 @@ sendBroadcast and resultNumber:1678resultPkg[com.kugou.android.lite, com.termux.
 
 `F2FS:<before>:<after>` is the per-app fragmentation count before and after the pass.
 `fragment_count` is the sum of `before - after`.
+
+A run ends when `All stop,exit` appears. Some builds only emit the broadcast receipt, so after `sendBroadcast and resultNumber` the script waits a short grace period and then finishes anyway; if neither line shows up it falls back to the hard timeout. When a `resultPkg` list is present every requested package must appear in it, otherwise the run is marked `partial`. If the line is absent the cross-check is skipped rather than failing an otherwise successful run.
 
 > [!IMPORTANT]
 > `fbo-installd` is marked `disabled` in its init rc and **exits on its own** after every batch.
@@ -87,10 +83,7 @@ package list without it:
 ## The UFS sysfs path is not used
 
 Xiaomi's out-of-tree patch series (`drivers/ufs/core/ufsfbo.c`, 2022) exposes
-`fbo_dev_ctrl/{fbo_support,fbo_prog_state,fbo_operation_ctrl,fbo_exe_threshold,fbo_send_lba,fbo_lba_frag_state}`
-under the SCSI device. That series was never merged upstream and the sysfs nodes do not exist on this
-kernel — the device implements FBO through f2fs and the HAL instead. A sysfs backend was written and
-then removed; it lives in the `v0.1.0` history if a kernel ever exposes those attributes.
+`fbo_dev_ctrl/{fbo_support,fbo_prog_state,fbo_operation_ctrl,fbo_exe_threshold,fbo_send_lba,fbo_lba_frag_state}` under the SCSI device. That series was never merged upstream and the sysfs nodes do not exist on this kernel — the device implements FBO through f2fs and the HAL instead. A sysfs backend was written and then removed; it lives in the `v0.1.0` history if a kernel ever exposes those attributes.
 
 ## Known issues
 

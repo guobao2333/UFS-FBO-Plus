@@ -10,16 +10,11 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Estimate | 2 min | 5 | 8 | 12 | 15 | 20 | 25 | 30 | “may take 30 minutes or more” |
 
-Only whole minutes are shown. Past eight apps the UI stops quoting numbers: a selection large enough to
-reach 128 GB / 256 GB / 512 GB of data makes any figure a guess, and “or more” cannot be wrong at the
-edge.
+Only whole minutes are shown. Past eight apps the UI stops quoting numbers: a selection large enough to reach 128 GB / 256 GB / 512 GB of data makes any figure a guess, and “or more” cannot be wrong at the edge.
 
 ## Why not a formula
 
-The numbers are hand-picked, not fitted. A logarithmic fit anchored at 1 → 2 min and 8 → 30 min yields
-11 minutes for two apps — far off the intended 5. Hardware generation and wear differ too much for a
-fitted curve to mean anything across devices, so the baseline is only labelled as a like-new
-Snapdragon 8 Elite reference.
+The numbers are hand-picked, not fitted. A logarithmic fit anchored at 1 → 2 min and 8 → 30 min yields 11 minutes for two apps — far off the intended 5. Hardware generation and wear differ too much for a fitted curve to mean anything across devices, so the baseline is only labelled as a like-new Snapdragon 8 Elite reference.
 
 ## Internally nothing is capped
 
